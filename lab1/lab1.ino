@@ -2,11 +2,6 @@
 #include "my_robot.h"
 using namespace Pololu3piPlus32U4;
 
-<<<<<<< HEAD
-=======
-Motors motors;
-
->>>>>>> 1bc9030 (Primitive functions added)
 void setup() {
   Serial.begin(9600);
   delay(15);
@@ -15,24 +10,6 @@ void setup() {
 void loop(){
     //Sets the speeds for motors 
     //The value of the input is given in mm/s with a maximum value of 400
-<<<<<<< HEAD
-    
-    //move forward
-
-    //move backwards
-
-    //turn right(in place)
-
-    //turn left (in place)
-
-    //move forward while turning right
-
-    //move forward while turning left
-
-
-    //halt
-}
-=======
     motors.setSpeeds(100, 100);
     //move forward
     moveForward(0.1, 0.1);
@@ -107,4 +84,3 @@ void moveForwardTurningLeft(short distance, short speed) {
   delay(duration_ms);
   Halt();
 }
->>>>>>> 1bc9030 (Primitive functions added)
