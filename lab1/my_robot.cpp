@@ -1,26 +1,21 @@
 #include <Pololu3piPlus32U4.h>
 #include "my_robot.h"
-using namespace Pololu3piPlus32U4;
-
-#define SECONDS_TO_MS 1000
-#define M_TO_MM 1000
-#define TURN_SPEED_RATIO 0.5
 
 MyRobot::MyRobot() {
     setSpeeds(0, 0);
 }
 
 void MyRobot::turnLeft(float duration, float speed) {
-    int duration_ms = duration * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
+    int duration_ms = duration * s_to_ms;
+    int speed_mms = speed * m_to_mm;
     setSpeeds(-speed_mms, speed_mms);
     delay(duration_ms);
     Halt();
 }
 
 void MyRobot::turnRight(float duration, float speed) {
-    int duration_ms = duration * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
+    int duration_ms = duration * s_to_ms;
+    int speed_mms = speed * m_to_mm;
     setSpeeds(speed_mms, -speed_mms);
     delay(duration_ms);
     Halt();
@@ -31,49 +26,49 @@ void MyRobot::Halt() {
 }
 
 void MyRobot::moveForward(float distance, float speed) {
-    int duration_ms = (distance / speed) * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
+    int duration_ms = (distance / speed) * s_to_ms;
+    int speed_mms = speed * m_to_mm;
     setSpeeds(speed_mms, speed_mms);
     delay(duration_ms);
     Halt();
 }
 
 void MyRobot::moveBackward(float distance, float speed) {
-    int duration_ms = (distance / speed) * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
+    int duration_ms = (distance / speed) * s_to_ms;
+    int speed_mms = speed * m_to_mm;
     setSpeeds(-speed_mms, -speed_mms);
     delay(duration_ms);
     Halt();
 }
 
 void MyRobot::moveForwardTurningLeft(float distance, float speed) {
-    int duration_ms = (distance / speed) * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
-    setSpeeds(speed_mms * TURN_SPEED_RATIO, speed_mms); 
+    int duration_ms = (distance / speed) * s_to_ms;
+    int speed_mms = speed * m_to_mm;
+    setSpeeds(speed_mms * turn_speed_ratio, speed_mms); 
     delay(duration_ms);
     Halt();
 }
 
 void MyRobot::moveForwardTurningRight(float distance, float speed) {
-    int duration_ms = (distance / speed) * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
-    setSpeeds(speed_mms, speed_mms * TURN_SPEED_RATIO); 
+    int duration_ms = (distance / speed) * s_to_ms;
+    int speed_mms = speed * m_to_mm;
+    setSpeeds(speed_mms, speed_mms * turn_speed_ratio); 
     delay(duration_ms);
     Halt();
 }
 
 void MyRobot::moveBackwardTurningLeft(float distance, float speed) {
-    int duration_ms = (distance / speed) * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
-    setSpeeds(-speed_mms * TURN_SPEED_RATIO, -speed_mms); 
+    int duration_ms = (distance / speed) * s_to_ms;
+    int speed_mms = speed * m_to_mm;
+    setSpeeds(-speed_mms * turn_speed_ratio, -speed_mms); 
     delay(duration_ms);
     Halt();
 }
 
 void MyRobot::moveBackwardTurningRight(float distance, float speed) {
-    int duration_ms = (distance / speed) * SECONDS_TO_MS;
-    int speed_mms = speed * M_TO_MM;
-    setSpeeds(-speed_mms, -speed_mms * TURN_SPEED_RATIO); 
+    int duration_ms = (distance / speed) * s_to_ms;
+    int speed_mms = speed * m_to_mm;
+    setSpeeds(-speed_mms, -speed_mms * turn_speed_ratio); 
     delay(duration_ms);
     Halt();
 }

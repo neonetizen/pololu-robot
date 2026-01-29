@@ -1,10 +1,10 @@
 #ifndef my_robot_h
 #define my_robot_h
+
 #include <Pololu3piPlus32U4.h>
-using namespace Pololu3piPlus32U4;
 
 class MyRobot : public Pololu3piPlus32U4::Motors {
-  public:
+public:
     MyRobot();
 
     /**
@@ -14,7 +14,7 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * at a specified speed.
      *
      * @param duration Float controlling duration in seconds
-     * @param speed Short integer controlling speed in m/s
+     * @param speed Float controlling speed in m/s
      */
     void turnLeft(float duration, float speed);
 
@@ -25,7 +25,7 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * at a specified speed.
      *
      * @param duration Float controlling duration in seconds
-     * @param speed Short integer controlling speed in m/s
+     * @param speed Float controlling speed in m/s
      */
     void turnRight(float duration, float speed);
 
@@ -44,7 +44,7 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * a specified speed.
      *
      * @param distance Float controlling distance in m
-     * @param speed Short integer controlling speed in m/s
+     * @param speed Float controlling speed in m/s
      */
     void moveForward(float distance, float speed);
 
@@ -102,6 +102,12 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * @param speed Float controlling speed in m/s
      */
     void moveBackwardTurningRight(float distance, float speed);
+
+private:
+    static constexpr float s_to_ms = 1000.0f;
+    static constexpr float m_to_mm = 1000.0f;
+    static constexpr float turn_speed_ratio = 0.5f;
+
 };
 
 #endif
