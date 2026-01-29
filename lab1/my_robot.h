@@ -3,7 +3,7 @@
 #include <Pololu3piPlus32U4.h>
 using namespace Pololu3piPlus32U4;
 
-class MyRobot{
+class MyRobot : public Pololu3piPlus32U4::Motors {
   public:
     MyRobot();
 

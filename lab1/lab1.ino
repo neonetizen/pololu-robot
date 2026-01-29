@@ -2,6 +2,8 @@
 #include "my_robot.h"
 using namespace Pololu3piPlus32U4;
 
+Motors motors;
+
 void setup() {
   Serial.begin(9600);
   delay(15);
@@ -18,7 +20,7 @@ void loop(){
     //turn right(in place)
     turnRight(100, 100);
     //turn left (in place)
-    turnRight(100, 100);
+    turnLeft(100, 100);
     //move forward while turning right
     moveForwardTurningRight(0.5, 100);
     //move forward while turning left
@@ -29,9 +31,27 @@ void loop(){
     exit(1);
 }
 
-//Duration in ms = (distance/speed) * 1000
-//Speed in mm/s = speed in m/s * 1000
-//Distance in m
+/*
+ * @brief Conversion Table
+ * 
+ * Input Units
+ * Distance = meters
+ * Speed = meters/sec
+ * 
+ * REQUIRED OUTPUTS:
+ * ------------------------------------------
+ * 1. Delay Time (ms)
+ * Function: delay() requires milliseconds.
+ * Logic: Time = Distance / Speed
+ * Units: (m) / (m/s) = seconds
+ * Formula: (Distance / Speed) * 1000
+ *
+ * 2. Motor Power (mm/s)
+ * Function: motors.setSpeeds() accepts approx mm/s (Max 400).
+ * Logic: Convert m/s to mm/s
+ * Formula: Speed (m/s) * 1000
+ *
+ */
 
 void Halt() {
   motors.setSpeeds(0, 0);
