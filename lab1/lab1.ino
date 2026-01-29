@@ -12,46 +12,26 @@ void setup() {
 void loop(){
     //Sets the speeds for motors 
     //The value of the input is given in mm/s with a maximum value of 400
-    motors.setSpeeds(100, 100);
+    //speeds input as m/s, distance input as m, duration input as seconds
+
+    motors.setSpeeds(0, 0);
     //move forward
     moveForward(0.1, 0.1);
     //move backwards
-    moveBackward(0.5, 100);
+    moveBackward(1.0, 0.1);
     //turn right(in place)
-    turnRight(100, 100);
+    turnRight(1.0, 0.1);
     //turn left (in place)
-    turnLeft(100, 100);
+    turnLeft(1.0, 0.1);
     //move forward while turning right
-    moveForwardTurningRight(0.5, 100);
+    moveForwardTurningRight(0.5, 0.1);
     //move forward while turning left
-    moveForwardTurningLeft(0.5, 100);
+    moveForwardTurningLeft(0.5, 0.1);
 
     //halt
     Halt();
     exit(1);
 }
-
-/*
- * @brief Conversion Table
- * 
- * Input Units
- * Distance = meters
- * Speed = meters/sec
- * 
- * REQUIRED OUTPUTS:
- * ------------------------------------------
- * 1. Delay Time (ms)
- * Function: delay() requires milliseconds.
- * Logic: Time = Distance / Speed
- * Units: (m) / (m/s) = seconds
- * Formula: (Distance / Speed) * 1000
- *
- * 2. Motor Power (mm/s)
- * Function: motors.setSpeeds() accepts approx mm/s (Max 400).
- * Logic: Convert m/s to mm/s
- * Formula: Speed (m/s) * 1000
- *
- */
 
 void Halt() {
   motors.setSpeeds(0, 0);
