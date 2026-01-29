@@ -13,10 +13,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot turn in place to the left for a specified duration
      * at a specified speed.
      *
-     * @param duration Short integer controlling duration in ms
-     * @param speed Short integer controlling speed in mm/s
+     * @param duration Float controlling duration in seconds
+     * @param speed Short integer controlling speed in m/s
      */
-    void turnLeft(short duration, short speed);
+    void turnLeft(float duration, float speed);
 
     /**
      * @brief Turns robot right in place.
@@ -24,10 +24,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot turn in place to the right for a specified duration
      * at a specified speed.
      *
-     * @param duration Short integer controlling duration in ms
-     * @param speed Short integer controlling speed in mm/s
+     * @param duration Float controlling duration in seconds
+     * @param speed Short integer controlling speed in m/s
      */
-    void turnRight(short duration, short speed);
+    void turnRight(float duration, float speed);
 
     /**
      * @brief Stops the robot.
@@ -43,10 +43,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot move straight forward for a specified distance at 
      * a specified speed.
      *
-     * @param distance Short integer controlling distance in m
-     * @param speed Short integer controlling speed in mm/s
+     * @param distance Float controlling distance in m
+     * @param speed Short integer controlling speed in m/s
      */
-    void moveForward(short distance, short speed);
+    void moveForward(float distance, float speed);
 
     /**
      * @brief Moves robot backward.
@@ -54,10 +54,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot move straight backward for a specified distance at 
      * a specified speed.
      *
-     * @param distance Short integer controlling distance in m
-     * @param speed Short integer controlling speed in mm/s
+     * @param distance Float controlling distance in m
+     * @param speed Float controlling speed in m/s
      */
-    void moveBackward(short distance, short speed);
+    void moveBackward(float distance, float speed);
 
     /**
      * @brief Moves robot forward and left.
@@ -65,10 +65,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot move forward while turning left for a specified
      * distance at a specified speed.
      *
-     * @param distance Short integer controlling distance in m
-     * @param speed Short integer controlling speed in mm/s
+     * @param distance Float controlling distance in m
+     * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningLeft(short distance, short speed);
+    void moveForwardTurningLeft(float distance, float speed);
 
     /**
      * @brief Moves robot forward and right.
@@ -76,10 +76,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot move forward while turning right for a specified
      * distance at a specified speed.
      *
-     * @param distance Short integer controlling distance in m
-     * @param speed Short integer controlling speed in mm/s
+     * @param distance Float controlling distance in m
+     * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningRight(short distance, short speed);
+    void moveForwardTurningRight(float distance, float speed);
 
     /**
      * @brief Moves robot backward and left.
@@ -87,10 +87,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot move backward while turning left for a specified
      * distance at a specified speed.
      *
-     * @param distance Short integer controlling distance in m
-     * @param speed Short integer controlling speed in mm/s
+     * @param distance Float controlling distance in m
+     * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningLeft(short distance, short speed);
+    void moveBackwardTurningLeft(float distance, float speed);
 
     /**
      * @brief Moves robot backward and right.
@@ -98,13 +98,10 @@ class MyRobot : public Pololu3piPlus32U4::Motors {
      * Makes the robot move backward while turning right for a specified
      * distance at a specified speed.
      *
-     * @param distance Short integer controlling distance in m
-     * @param speed Short integer controlling speed in mm/s
+     * @param distance Float controlling distance in m
+     * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningRight(short distance, short speed);
-
-  private:
-    
+    void moveBackwardTurningRight(float distance, float speed);
 };
 
 #endif

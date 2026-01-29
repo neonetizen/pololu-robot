@@ -13,26 +13,27 @@ void loop(){
     //Sets the speeds for motors 
     //The value of the input is given in mm/s with a maximum value of 400
     //speeds input as m/s, distance input as m, duration input as seconds
-
-    motors.setSpeeds(0, 0);
+    MyRobot robot;
+    robot.Halt();
     //move forward
-    moveForward(0.1, 0.1);
+    robot.moveForward(0.1, 0.1);
     //move backwards
-    moveBackward(1.0, 0.1);
+    robot.moveBackward(1.0, 0.1);
     //turn right(in place)
-    turnRight(1.0, 0.1);
+    robot.turnRight(1.0, 0.1);
     //turn left (in place)
-    turnLeft(1.0, 0.1);
+    robot.turnLeft(1.0, 0.1);
     //move forward while turning right
-    moveForwardTurningRight(0.5, 0.1);
+    robot.moveForwardTurningRight(0.5, 0.1);
     //move forward while turning left
-    moveForwardTurningLeft(0.5, 0.1);
+    robot.moveForwardTurningLeft(0.5, 0.1);
 
     //halt
-    Halt();
+    robot.Halt();
     exit(1);
 }
 
+/* deprecated task 2 functions
 void Halt() {
   motors.setSpeeds(0, 0);
 }
@@ -84,3 +85,4 @@ void moveForwardTurningLeft(short distance, short speed) {
   delay(duration_ms);
   Halt();
 }
+*/

@@ -2,21 +2,25 @@
 #include "my_robot.h"
 using namespace Pololu3piPlus32U4;
 
+#define SECONDS_TO_MS 1000
+#define M_TO_MM 1000
+#define TURN_SPEED_RATIO 0.5
+
 MyRobot::MyRobot() {
     setSpeeds(0, 0);
 }
 
-void MyRobot::turnLeft(short duration, short speed) {
-    short duration_ms = duration * 1000;
-    short speed_mms = speed * 1000;
+void MyRobot::turnLeft(float duration, float speed) {
+    int duration_ms = duration * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
     setSpeeds(-speed_mms, speed_mms);
     delay(duration_ms);
     Halt();
 }
 
-void MyRobot::turnRight(short duration, short speed) {
-    short duration_ms = duration * 1000;
-    short speed_mms = speed * 1000;
+void MyRobot::turnRight(float duration, float speed) {
+    int duration_ms = duration * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
     setSpeeds(speed_mms, -speed_mms);
     delay(duration_ms);
     Halt();
@@ -26,50 +30,50 @@ void MyRobot::Halt() {
     setSpeeds(0, 0);
 }
 
-void MyRobot::moveForward(short distance, short speed) {
-    short duration_ms = (distance / speed) * 1000;
-    short speed_mms = speed * 1000;
+void MyRobot::moveForward(float distance, float speed) {
+    int duration_ms = (distance / speed) * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
     setSpeeds(speed_mms, speed_mms);
     delay(duration_ms);
     Halt();
 }
 
-void MyRobot::moveBackward(short distance, short speed) {
-    short duration_ms = (distance / speed) * 1000;
-    short speed_mms = speed * 1000;
+void MyRobot::moveBackward(float distance, float speed) {
+    int duration_ms = (distance / speed) * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
     setSpeeds(-speed_mms, -speed_mms);
     delay(duration_ms);
     Halt();
 }
 
-void MyRobot::moveForwardTurningLeft(short distance, short speed) {
-    short duration_ms = (distance / speed) * 1000;
-    short speed_mms = speed * 1000;
-    setSpeeds(speed_mms * 0.5, speed_mms); 
+void MyRobot::moveForwardTurningLeft(float distance, float speed) {
+    int duration_ms = (distance / speed) * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
+    setSpeeds(speed_mms * TURN_SPEED_RATIO, speed_mms); 
     delay(duration_ms);
     Halt();
 }
 
-void MyRobot::moveForwardTurningRight(short distance, short speed) {
-    short duration_ms = (distance / speed) * 1000;
-    short speed_mms = speed * 1000;
-    setSpeeds(speed_mms, speed_mms * 0.5); 
+void MyRobot::moveForwardTurningRight(float distance, float speed) {
+    int duration_ms = (distance / speed) * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
+    setSpeeds(speed_mms, speed_mms * TURN_SPEED_RATIO); 
     delay(duration_ms);
     Halt();
 }
 
-void MyRobot::moveBackwardTurningLeft(short distance, short speed) {
-    short duration_ms = (distance / speed) * 1000;
-    short speed_mms = speed * 1000;
-    setSpeeds(-speed_mms * 0.5, -speed_mms); 
+void MyRobot::moveBackwardTurningLeft(float distance, float speed) {
+    int duration_ms = (distance / speed) * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
+    setSpeeds(-speed_mms * TURN_SPEED_RATIO, -speed_mms); 
     delay(duration_ms);
     Halt();
 }
 
-void MyRobot::moveBackwardTurningRight(short distance, short speed) {
-    short duration_ms = (distance / speed) * 1000;
-    short speed_mms = speed * 1000;
-    setSpeeds(-speed_mms, -speed_mms * 0.5); 
+void MyRobot::moveBackwardTurningRight(float distance, float speed) {
+    int duration_ms = (distance / speed) * SECONDS_TO_MS;
+    int speed_mms = speed * M_TO_MM;
+    setSpeeds(-speed_mms, -speed_mms * TURN_SPEED_RATIO); 
     delay(duration_ms);
     Halt();
 }
