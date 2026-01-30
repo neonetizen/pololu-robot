@@ -102,12 +102,6 @@ public:
      * @param speed Float controlling speed in m/s
      */
     void moveBackwardTurningRight(float distance, float speed);
-
-private:
-    static constexpr float s_to_ms = 1000.0f;
-    static constexpr float m_to_mm = 1000.0f;
-    static constexpr float turn_speed_ratio = 0.5f;
-
 };
 
 #endif
