@@ -1,5 +1,6 @@
 #include <Pololu3piPlus32U4.h>
 #include "my_robot.h"
+using namespace Pololu3piPlus32U4;
 
 #define S_TO_MS 1000
 #define M_TO_MM 1000
@@ -64,7 +65,8 @@ void MyRobot::moveForwardTurningRight(float distance, float speed) {
 void MyRobot::moveBackwardTurningLeft(float distance, float speed) {
     int duration_ms = (distance / speed) * S_TO_MS;
     int speed_mms = speed * M_TO_MM;
-    setSpeeds(-speed_mms * TURN_SPEED_RATIO, -speed_mms); 
+    int left_mms = -speed_mms * TURN_SPEED_RATIO;
+    setSpeeds(left_mms, -speed_mms); 
     delay(duration_ms);
     Halt();
 }
@@ -72,7 +74,8 @@ void MyRobot::moveBackwardTurningLeft(float distance, float speed) {
 void MyRobot::moveBackwardTurningRight(float distance, float speed) {
     int duration_ms = (distance / speed) * S_TO_MS;
     int speed_mms = speed * M_TO_MM;
-    setSpeeds(-speed_mms, -speed_mms * TURN_SPEED_RATIO); 
+    int right_mms = -speed_mms * TURN_SPEED_RATIO;
+    setSpeeds(-speed_mms, right_mms); 
     delay(duration_ms);
     Halt();
 }
