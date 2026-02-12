@@ -21,6 +21,7 @@ void MyRobot::turnLeft(float duration, float speed) {
     duration_ms = duration * S_TO_MS;
     left_mms = -speed * M_TO_MM;
     right_mms = speed * M_TO_MM;
+    Halt();
 }
 
 void MyRobot::turnRight(float duration, float speed) {
@@ -29,6 +30,7 @@ void MyRobot::turnRight(float duration, float speed) {
     duration_ms = duration * S_TO_MS;
     left_mms = speed * M_TO_MM;
     right_mms = -speed * M_TO_MM;
+    Halt();
 }
 
 void MyRobot::moveForward(float distance, float speed) {
@@ -36,6 +38,7 @@ void MyRobot::moveForward(float distance, float speed) {
     start_time = millis();
     duration_ms = (distance / speed) * S_TO_MS;
     left_mms = right_mms = speed * M_TO_MM;
+    Halt();
 }
 
 void MyRobot::moveBackward(float distance, float speed) {
@@ -43,6 +46,7 @@ void MyRobot::moveBackward(float distance, float speed) {
     start_time = millis();
     duration_ms = (distance / speed) * S_TO_MS;
     left_mms = right_mms = -speed * M_TO_MM;
+    Halt();
 }
 
 void MyRobot::moveForwardTurningLeft(float distance, float speed) {
@@ -52,6 +56,7 @@ void MyRobot::moveForwardTurningLeft(float distance, float speed) {
     int speed_mms = speed * M_TO_MM;
     left_mms = speed_mms * TURN_SPEED_RATIO;
     right_mms = speed_mms;
+    Halt();
 }
 
 void MyRobot::moveForwardTurningRight(float distance, float speed) {
@@ -61,6 +66,7 @@ void MyRobot::moveForwardTurningRight(float distance, float speed) {
     int speed_mms = speed * M_TO_MM;
     left_mms = speed_mms;
     right_mms = speed_mms * TURN_SPEED_RATIO;
+    Halt();
 }
 
 void MyRobot::moveBackwardTurningLeft(float distance, float speed) {
@@ -70,6 +76,7 @@ void MyRobot::moveBackwardTurningLeft(float distance, float speed) {
     int speed_mms = speed * M_TO_MM;
     left_mms = -speed_mms * TURN_SPEED_RATIO;
     right_mms = -speed_mms;
+    Halt();
 }
 
 void MyRobot::moveBackwardTurningRight(float distance, float speed) {
@@ -79,6 +86,7 @@ void MyRobot::moveBackwardTurningRight(float distance, float speed) {
     int speed_mms = speed * M_TO_MM;
     left_mms = -speed_mms;
     right_mms = -speed_mms * TURN_SPEED_RATIO;
+    Halt();
 }
 
 void MyRobot::update() {
