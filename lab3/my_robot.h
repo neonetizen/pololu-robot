@@ -119,11 +119,11 @@ public:
     void moveBackwardTurningRight(float distance, float speed);
 
 private:
-    RobotState state;
-    unsigned long start_time;
-    unsigned long duration_ms;
-    int left_mms;
-    int right_mms;
+    RobotState _state;
+    unsigned long _start_time;
+    unsigned long _duration_ms;
+    int _left_mms;
+    int _right_mms;
 };
 
 #endif
