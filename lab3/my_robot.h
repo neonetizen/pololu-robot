@@ -4,15 +4,15 @@
 #include <Pololu3piPlus32U4.h>
 
 enum RobotState {
-    IDLE,
-    TURN_LEFT,
-    TURN_RIGHT,
-    MOVE_FORWARD,
-    MOVE_BACKWARD,
-    MOVE_FORWARD_LEFT,
-    MOVE_FORWARD_RIGHT,
-    MOVE_BACKWARD_LEFT,
-    MOVE_BACKWARD_RIGHT
+    IDLE = 1,
+    TURN_LEFT = 2,
+    TURN_RIGHT = 3,
+    MOVE_FORWARD = 4,
+    MOVE_BACKWARD = 5,
+    MOVE_FORWARD_LEFT = 6,
+    MOVE_FORWARD_RIGHT = 7,
+    MOVE_BACKWARD_LEFT = 8,
+    MOVE_BACKWARD_RIGHT = 9
 };
 
 class MyRobot : public Pololu3piPlus32U4::Motors {
@@ -26,8 +26,27 @@ public:
      * called again), and sets the state to IDLE.
      */
     void Halt();
+    /**
+     * @brief Stops the robot.
+     *
+     * Makes the robot stay still (until another primitive function is 
+     * called again), and sets the state to IDLE.
+     */
+    RobotState getState();
 
     void update();
+    /**
+     * @brief Updates the robot state and sets the speeds.
+     *
+     * Updates the robot state and sets the speeds based on the current state.
+     * If the robot is in the IDLE state, it does nothing.
+     * If the robot is not in the IDLE state, it checks if the duration has elapsed.
+     * If the duration has elapsed, it sets the speeds to 0 and sets the state to IDLE.
+     * If the duration has not elapsed, it sets the speeds based on the current state.
+     * The speeds are set based on the current state.
+     *
+     */
+
     bool isBusy() const;
 
     /**
@@ -119,7 +138,7 @@ public:
     void moveBackwardTurningRight(float distance, float speed);
 
 private:
-    RobotState _state;
+    RobotState _state = IDLE;
     unsigned long _start_time;
     unsigned long _duration_ms;
     int _left_mms;

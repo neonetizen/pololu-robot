@@ -38,6 +38,8 @@ void MyRobot::moveForward(float distance, float speed) {
     _start_time = millis();
     _duration_ms = (distance / speed) * S_TO_MS;
     _left_mms = _right_mms = speed * M_TO_MM;
+    while (millis() <= _duration_ms)
+        setSpeeds(_left_mms, _right_mms);
     Halt();
 }
 
@@ -46,6 +48,8 @@ void MyRobot::moveBackward(float distance, float speed) {
     _start_time = millis();
     _duration_ms = (distance / speed) * S_TO_MS;
     _left_mms = _right_mms = -speed * M_TO_MM;
+    while (millis() <= _duration_ms)
+        setSpeeds(_left_mms, _right_mms);
     Halt();
 }
 
@@ -86,18 +90,14 @@ void MyRobot::moveBackwardTurningRight(float distance, float speed) {
     int speed_mms = speed * M_TO_MM;
     _left_mms = -speed_mms;
     _right_mms = -speed_mms * TURN_SPEED_RATIO;
-    Halt();
-}
-
-void MyRobot::update() {
-    if (_state == IDLE) return;
-    if ((millis() - _start_time) >= _duration_ms) {
-        Halt();
-        return;
-    }
     setSpeeds(_left_mms, _right_mms);
+    Halt();
 }
 
 bool MyRobot::isBusy() const {
     return _state != IDLE;
+}
+
+RobotState MyRobot::getState() {
+    return _state;
 }

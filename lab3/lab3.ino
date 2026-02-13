@@ -8,7 +8,7 @@ Motors motors;
 Encoders encoders;
 MyRobot robot;
 PrintOLED oledPrinter;
-
+bool done = false;
 
 /*DEFINE VARIBLES FOR PHYSICAL ROBOT PARAMETRS 
 BY INSERTING THE PARAMETER VALUES FROM THE ROBOT DOCUMENTATION*/
@@ -22,7 +22,6 @@ BY INSERTING THE PARAMETER VALUES FROM THE ROBOT DOCUMENTATION*/
 #define DURATION_NINETY_DEG_LEFT (PI * diaL)/4
 
 #define BaseSpeed 100  // unit: mm per second
-
 
 Odometry odometry(diaL, diaR, w, nL, nR, gearRatio, DEAD_RECKONING);
 
@@ -38,7 +37,6 @@ void setup() {
 }
 
 void loop() {  
-
       //(TASK 2.1) Test Encoders while Staying Still 
 
       //IMPORT FUNCTIONS FROM LAB1 (MOVE FORWARD, TURN LEFT, ...) 
@@ -46,54 +44,50 @@ void loop() {
 
       //Encoder code should always be before updating and movement
       // Read data from encoders and update robot state
-      robot.update();
       deltaL = encoders.getCountsAndResetLeft();
       deltaR = encoders.getCountsAndResetRight();
-      Serial.print("Delta Left: ");
-      Serial.println(deltaL);
-      Serial.print("Delta RightL ");
-      Serial.println(deltaR);
-
       // Increment total encoder count
       encCountsLeft += deltaL;
       encCountsRight += deltaR;
-      Serial.print("Encoder Counts Left: ");
-      Serial.println(encCountsLeft);
-      Serial.print("Encoder Counts Right: ");
-      Serial.println(encCountsRight);
-      
 
       //(TASK 2.2) TEST ENCODERS WHILE MOVING EACH OF THE THREE MOVEMENTS LISTED BELOW (ONE AT A TIME) 
       //(NOTE: YOU SHOULD UPDATE AND USE PRIMITIVE FUNCTIONS FROM LAB1)
       //DO NOT DELETE CODE AFTER EACH TASK, COMMENT OUT INSTEAD
       
       //(2.2a) MOVE FORWARD ON A STRAIGHT LINE FOR ONE METER 
-      if(!robot.isBusy()) {
-        robot.moveForward(1, 0.1);
+      if(!robot.isBusy() && !done) {
+        robot.moveForward(0.8, 0.05);
+        robot.Halt();
+        delay(4000);
+        robot.moveBackward(0.8, 0.5);
       }
-      //(2.2b) MOVE BACKWARD ON A STRAIGHT LINE FOR ONE METER
+      robot.Halt();
+      
 
-      /*if(!robot.isBusy()) {
+      //(2.2b) MOVE BACKWARD ON A STRAIGHT LINE FOR ONE METER
+      /*
+      if(!robot.isBusy()) {
         robot.moveBackward(1, 0.1);
-      }*/
+      }
       //(2.2c) TURN LEFT FOR 90 DEGREES
       if(!robot.isBusy()) {
         robot.turnLeft(DURATION_NINETY_DEG_LEFT, 0.1);
+        robot.update();
       }
-      
+      */
       // PRINT THE LEFT AND RIGHT ODOMETRY VALUES ON OLED
       // PRINT THE LEFT AND RIGHT ODOMETRY VALUES ON SERIAL MONITOR
 
       oledPrinter.print_encoder(encCountsLeft, encCountsRight);
-      Serial.print("Encoder Counts Left: ");
+     /* Serial.print("Encoder Counts Left: ");
       Serial.println(encCountsLeft);
       Serial.print("Encoder Counts Right: ");
       Serial.println(encCountsRight);
-
+*/
       //(TASK 3.1) IMPLEMENT ODOMETRY 
 
       /*UNCOMMENT Odometry.update_odom DOWN BELOW*/
-      odometry.update_odom(encCountsLeft,encCountsRight, x, y, theta); //calculate robot's position
+      //odometry.update_odom(encCountsLeft,encCountsRight, x, y, theta); //calculate robot's position
 
       /*NOW GO TO odometry.cpp file AND COMPLETE THE udate_odom FUNCTION. 
       IN odometry.cpp, ADD CODES TO ENABLE THE ROBOT TO 
@@ -112,24 +106,38 @@ void loop() {
       //(3.2c)  1-meter square clockwise
       if(!robot.isBusy()) {
         robot.moveForward(1, 0.1);
+        robot.update();
         robot.turnRight(PI/2, 0.1);
+        robot.update();
         robot.moveForward(1, 0.1);
+        robot.update();
         robot.turnRight(PI/2, 0.1);
+        robot.update();
         robot.moveForward(1, 0.1);
+        robot.update();
         robot.turnRight(PI/2, 0.1);
+        robot.update();
         robot.moveForward(1, 0.1);
+        robot.update();
       }
 
       //(3.3e)  1-meter square counterclockwise
       if(!robot.isBusy()) {
         robot.moveForward(1, 0.1);
+        robot.update();
         robot.turnLeft(PI/2, 0.1);
+        robot.update();
         robot.moveForward(1, 0.1);
+        robot.update();
         robot.turnLeft(PI/2, 0.1);
+        robot.update();
         robot.moveForward(1, 0.1);
+        robot.update();
         robot.turnLeft(PI/2, 0.1);
+        robot.update();
         robot.moveForward(1, 0.1);
+        robot.update();
       }
       */
-      while(true) {}
+      //while(true) {}
 }

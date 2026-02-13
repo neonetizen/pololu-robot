@@ -3,9 +3,32 @@
 
 #include <Pololu3piPlus32U4.h>
 
+enum RobotState {
+    IDLE,
+    TURN_LEFT,
+    TURN_RIGHT,
+    MOVE_FORWARD,
+    MOVE_BACKWARD,
+    MOVE_FORWARD_LEFT,
+    MOVE_FORWARD_RIGHT,
+    MOVE_BACKWARD_LEFT,
+    MOVE_BACKWARD_RIGHT
+};
+
 class MyRobot : public Pololu3piPlus32U4::Motors {
 public:
     MyRobot();
+
+    /**
+     * @brief Stops the robot.
+     *
+     * Makes the robot stay still (until another primitive function is 
+     * called again).
+     */
+    void Halt();
+
+    void update();
+    bool isBusy() const;
 
     /**
      * @brief Turns robot left in place.
@@ -28,14 +51,6 @@ public:
      * @param speed Float controlling speed in m/s
      */
     void turnRight(float duration, float speed);
-
-    /**
-     * @brief Stops the robot.
-     *
-     * Makes the robot stay still (until another primitive function is 
-     * called again).
-     */
-    void Halt();
 
     /**
      * @brief Moves robot forward.
@@ -102,6 +117,13 @@ public:
      * @param speed Float controlling speed in m/s
      */
     void moveBackwardTurningRight(float distance, float speed);
+
+private:
+    RobotState state;
+    unsigned long start_time;
+    unsigned long duration_ms;
+    int left_mms;
+    int right_mms;
 };
 
 #endif
