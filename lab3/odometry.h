@@ -20,6 +20,7 @@ class Odometry{
     bool _deadreckoning;
     int _left_encoder_counts_prev;
     int _right_encoder_counts_prev;
+    unsigned long _lastUpdateTime;
 
     double _x;
     double _y;

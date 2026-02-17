@@ -26,15 +26,7 @@ public:
      * called again), and sets the state to IDLE.
      */
     void Halt();
-    /**
-     * @brief Stops the robot.
-     *
-     * Makes the robot stay still (until another primitive function is 
-     * called again), and sets the state to IDLE.
-     */
-    RobotState getState();
 
-    void update();
     /**
      * @brief Updates the robot state and sets the speeds.
      *
@@ -43,11 +35,9 @@ public:
      * If the robot is not in the IDLE state, it checks if the duration has elapsed.
      * If the duration has elapsed, it sets the speeds to 0 and sets the state to IDLE.
      * If the duration has not elapsed, it sets the speeds based on the current state.
-     * The speeds are set based on the current state.
-     *
+     * Call this every loop iteration for non-blocking movement.
      */
-
-    bool isBusy() const;
+    void update();
 
     /**
      * @brief Turns robot left in place.
@@ -58,7 +48,7 @@ public:
      * @param duration Float controlling duration in seconds
      * @param speed Float controlling speed in m/s
      */
-    void turnLeft(float duration, float speed);
+    void turnLeft(const float duration, const float speed);
 
     /**
      * @brief Turns robot right in place.
@@ -69,7 +59,7 @@ public:
      * @param duration Float controlling duration in seconds
      * @param speed Float controlling speed in m/s
      */
-    void turnRight(float duration, float speed);
+    void turnRight(const float duration, const float speed);
 
     /**
      * @brief Moves robot forward.
@@ -80,7 +70,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForward(float distance, float speed);
+    void moveForward(const float distance, const float speed);
 
     /**
      * @brief Moves robot backward.
@@ -91,7 +81,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackward(float distance, float speed);
+    void moveBackward(const float distance, const float speed);
 
     /**
      * @brief Moves robot forward and left.
@@ -102,7 +92,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningLeft(float distance, float speed);
+    void moveForwardTurningLeft(const float distance, const float speed);
 
     /**
      * @brief Moves robot forward and right.
@@ -113,7 +103,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningRight(float distance, float speed);
+    void moveForwardTurningRight(const float distance, const float speed);
 
     /**
      * @brief Moves robot backward and left.
@@ -124,7 +114,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningLeft(float distance, float speed);
+    void moveBackwardTurningLeft(const float distance, const float speed);
 
     /**
      * @brief Moves robot backward and right.
@@ -135,14 +125,32 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningRight(float distance, float speed);
+    void moveBackwardTurningRight(const float distance, const float speed);
+
+    /**
+     * @brief Checks if robot is busy
+     *
+     * Checks if the robot is busy
+     *
+     * @return True if the robot is busy, false otherwise
+     */
+    bool isBusy() const;
+
+    /**
+     * @brief Gets state of the robot
+     *
+     * Gets the state of the robot
+     *
+     * @return The RobotState of the robot
+     */
+    RobotState getState() const;
 
 private:
     RobotState _state = IDLE;
-    unsigned long _start_time;
-    unsigned long _duration_ms;
-    int _left_mms;
-    int _right_mms;
+    unsigned long _start_time = 0;
+    unsigned long _duration_ms = 0;
+    int _left_mms = 0;
+    int _right_mms = 0;
 };
 
 #endif

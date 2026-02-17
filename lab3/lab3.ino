@@ -50,6 +50,8 @@ void loop() {
       encCountsLeft += deltaL;
       encCountsRight += deltaR;
 
+      robot.update();
+
       //(TASK 2.2) TEST ENCODERS WHILE MOVING EACH OF THE THREE MOVEMENTS LISTED BELOW (ONE AT A TIME) 
       //(NOTE: YOU SHOULD UPDATE AND USE PRIMITIVE FUNCTIONS FROM LAB1)
       //DO NOT DELETE CODE AFTER EACH TASK, COMMENT OUT INSTEAD
@@ -57,12 +59,7 @@ void loop() {
       //(2.2a) MOVE FORWARD ON A STRAIGHT LINE FOR ONE METER 
       if(!robot.isBusy() && !done) {
         robot.moveForward(0.8, 0.05);
-        robot.Halt();
-        delay(4000);
-        robot.moveBackward(0.8, 0.5);
-      }
-      robot.Halt();
-      
+      }      
 
       //(2.2b) MOVE BACKWARD ON A STRAIGHT LINE FOR ONE METER
       /*
@@ -87,7 +84,7 @@ void loop() {
       //(TASK 3.1) IMPLEMENT ODOMETRY 
 
       /*UNCOMMENT Odometry.update_odom DOWN BELOW*/
-      //odometry.update_odom(encCountsLeft,encCountsRight, x, y, theta); //calculate robot's position
+      odometry.update_odom(encCountsLeft, encCountsRight, x, y, theta); //calculate robot's position
 
       /*NOW GO TO odometry.cpp file AND COMPLETE THE udate_odom FUNCTION. 
       IN odometry.cpp, ADD CODES TO ENABLE THE ROBOT TO 
