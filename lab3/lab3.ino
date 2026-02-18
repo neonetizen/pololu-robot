@@ -8,7 +8,6 @@ Motors motors;
 Encoders encoders;
 MyRobot robot;
 PrintOLED oledPrinter;
-bool done = false;
 
 /*DEFINE VARIBLES FOR PHYSICAL ROBOT PARAMETRS 
 BY INSERTING THE PARAMETER VALUES FROM THE ROBOT DOCUMENTATION*/
@@ -57,8 +56,8 @@ void loop() {
       //DO NOT DELETE CODE AFTER EACH TASK, COMMENT OUT INSTEAD
       
       //(2.2a) MOVE FORWARD ON A STRAIGHT LINE FOR ONE METER 
-      if(!robot.isBusy() && !done) {
-        robot.moveForward(0.8, 0.05);
+      if(!robot.isBusy()) {
+        robot.moveForward(1, 0.1);
       }      
 
       //(2.2b) MOVE BACKWARD ON A STRAIGHT LINE FOR ONE METER
