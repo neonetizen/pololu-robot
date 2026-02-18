@@ -4,15 +4,15 @@
 #include <Pololu3piPlus32U4.h>
 
 enum RobotState {
-    IDLE = 1,
-    TURN_LEFT = 2,
-    TURN_RIGHT = 3,
-    MOVE_FORWARD = 4,
-    MOVE_BACKWARD = 5,
-    MOVE_FORWARD_LEFT = 6,
-    MOVE_FORWARD_RIGHT = 7,
-    MOVE_BACKWARD_LEFT = 8,
-    MOVE_BACKWARD_RIGHT = 9
+    IDLE,
+    TURN_LEFT,
+    TURN_RIGHT,
+    MOVE_FORWARD,
+    MOVE_BACKWARD,
+    MOVE_FORWARD_LEFT,
+    MOVE_FORWARD_RIGHT,
+    MOVE_BACKWARD_LEFT,
+    MOVE_BACKWARD_RIGHT
 };
 
 class MyRobot : public Pololu3piPlus32U4::Motors {
