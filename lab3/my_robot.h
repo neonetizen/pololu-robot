@@ -18,7 +18,6 @@ enum RobotState {
 class MyRobot : public Pololu3piPlus32U4::Motors {
 public:
     MyRobot();
-
     /**
      * @brief Stops the robot.
      *

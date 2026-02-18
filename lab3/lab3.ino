@@ -35,6 +35,8 @@ void setup() {
   delay(20);
 }
 
+bool done = false;
+
 void loop() {  
       //(TASK 2.1) Test Encoders while Staying Still 
 
@@ -56,10 +58,13 @@ void loop() {
       //DO NOT DELETE CODE AFTER EACH TASK, COMMENT OUT INSTEAD
       
       //(2.2a) MOVE FORWARD ON A STRAIGHT LINE FOR ONE METER 
-      if(!robot.isBusy()) {
-        robot.moveForward(1, 0.1);
+      /*
+      if(!robot.isBusy() && !done) {
+        robot.moveForward(0.80, 0.1);
+        //delay(10000);
+        done = true;
       }      
-
+*/
       //(2.2b) MOVE BACKWARD ON A STRAIGHT LINE FOR ONE METER
       /*
       if(!robot.isBusy()) {
@@ -74,16 +79,16 @@ void loop() {
       // PRINT THE LEFT AND RIGHT ODOMETRY VALUES ON OLED
       // PRINT THE LEFT AND RIGHT ODOMETRY VALUES ON SERIAL MONITOR
 
-      oledPrinter.print_encoder(encCountsLeft, encCountsRight);
-     /* Serial.print("Encoder Counts Left: ");
+     //oledPrinter.print_encoder(encCountsLeft, encCountsRight);
+      Serial.print("Encoder Counts Left: ");
       Serial.println(encCountsLeft);
       Serial.print("Encoder Counts Right: ");
       Serial.println(encCountsRight);
-*/
+
       //(TASK 3.1) IMPLEMENT ODOMETRY 
 
       /*UNCOMMENT Odometry.update_odom DOWN BELOW*/
-      odometry.update_odom(encCountsLeft, encCountsRight, x, y, theta); //calculate robot's position
+      //odometry.update_odom(encCountsLeft, encCountsRight, x, y, theta); //calculate robot's position
 
       /*NOW GO TO odometry.cpp file AND COMPLETE THE udate_odom FUNCTION. 
       IN odometry.cpp, ADD CODES TO ENABLE THE ROBOT TO 
