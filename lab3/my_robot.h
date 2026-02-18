@@ -47,7 +47,7 @@ public:
      * @param duration Float controlling duration in seconds
      * @param speed Float controlling speed in m/s
      */
-    void turnLeft(const float duration, const float speed);
+    void turnLeft(const float duration);
 
     /**
      * @brief Turns robot right in place.
@@ -58,7 +58,7 @@ public:
      * @param duration Float controlling duration in seconds
      * @param speed Float controlling speed in m/s
      */
-    void turnRight(const float duration, const float speed);
+    void turnRight(const float duration);
 
     /**
      * @brief Moves robot forward.
@@ -69,7 +69,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForward(const float distance, const float speed);
+    void moveForward(const float distance);
 
     /**
      * @brief Moves robot backward.
@@ -80,7 +80,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackward(const float distance, const float speed);
+    void moveBackward(const float distance);
 
     /**
      * @brief Moves robot forward and left.
@@ -91,7 +91,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningLeft(const float distance, const float speed);
+    void moveForwardTurningLeft(const float distance);
 
     /**
      * @brief Moves robot forward and right.
@@ -102,7 +102,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningRight(const float distance, const float speed);
+    void moveForwardTurningRight(const float distance);
 
     /**
      * @brief Moves robot backward and left.
@@ -113,7 +113,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningLeft(const float distance, const float speed);
+    void moveBackwardTurningLeft(const float distance);
 
     /**
      * @brief Moves robot backward and right.
@@ -124,7 +124,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningRight(const float distance, const float speed);
+    void moveBackwardTurningRight(const float distance);
 
     /**
      * @brief Checks if robot is busy
@@ -145,11 +145,15 @@ public:
     RobotState getState() const;
 
 private:
-    RobotState _state = IDLE;
-    unsigned long _start_time = 0;
-    unsigned long _duration_ms = 0;
-    int _left_mms = 0;
-    int _right_mms = 0;
+    static constexpr float _TURN_SPEED_RATIO = 0.5f;
+    static constexpr float _BASE_SPEED = 0.1f; // Speed in meters
+
+    unsigned long _start_time = 0; // Time since new motion in milliseconds
+    unsigned long _duration_ms = 0; // Desired time of most recent motion in milliseconds
+    int16_t _left_mms = 0; // Desired speed of left motor in millimeters per second
+    int16_t _right_mms = 0; // Desired speed of left motor in millimeters per second
+
+    RobotState _state; // State of robot; IDLE when idle, corresponding motion when not
 };
 
 #endif

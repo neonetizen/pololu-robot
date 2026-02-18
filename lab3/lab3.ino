@@ -60,7 +60,7 @@ void loop() {
       //(2.2a) MOVE FORWARD ON A STRAIGHT LINE FOR ONE METER 
 /*
       if(!robot.isBusy() && !done) {
-        robot.moveForward(0.80, 0.1);
+        robot.moveForward(0.80);
         //delay(10000);
         done = true;
       }      
@@ -68,13 +68,13 @@ void loop() {
       //(2.2b) MOVE BACKWARD ON A STRAIGHT LINE FOR ONE METER
 /*
       if(!robot.isBusy()) {
-        robot.moveBackward(1, 0.1);
+        robot.moveBackward(1);
       }
 */
       //(2.2c) TURN LEFT FOR 90 DEGREES
 /*
       if(!robot.isBusy()) {
-        robot.turnLeft(DURATION_NINETY_DEG_LEFT, 0.1);
+        robot.turnLeft(DURATION_NINETY_DEG_LEFT);
         robot.update();
       }
 */
@@ -104,7 +104,7 @@ void loop() {
       //(3.2a)  15-meter straight line down the hallway
 /*
       if(!robot.isBusy()) {
-        robot.moveForward(15, 0.1);
+        robot.moveForward(15);
       }
 */
 
@@ -112,14 +112,14 @@ void loop() {
 /*
       if (!robot.isBusy()) {
         switch (step) {
-          case 0: robot.moveForward(1, 0.1); break;
-          case 1: robot.turnRight(PI/2, 0.1); break;
-          case 2: robot.moveForward(1, 0.1); break;
-          case 3: robot.turnRight(PI/2, 0.1); break;
-          case 4: robot.moveForward(1, 0.1); break;
-          case 5: robot.turnRight(PI/2, 0.1); break;
-          case 6: robot.moveForward(1, 0.1); break;
-          case 7: robot.turnRight(PI/2, 0.1); break;
+          case 0: robot.moveForward(1); break;
+          case 1: robot.turnRight(PI/2); break;
+          case 2: robot.moveForward(1); break;
+          case 3: robot.turnRight(PI/2); break;
+          case 4: robot.moveForward(1); break;
+          case 5: robot.turnRight(PI/2); break;
+          case 6: robot.moveForward(1); break;
+          case 7: robot.turnRight(PI/2); break;
           default: break;
         }
         if (step < 8) step++;

@@ -18,17 +18,25 @@ enum RobotState {
 class MyRobot : public Pololu3piPlus32U4::Motors {
 public:
     MyRobot();
-
     /**
      * @brief Stops the robot.
      *
      * Makes the robot stay still (until another primitive function is 
-     * called again).
+     * called again), and sets the state to IDLE.
      */
     void Halt();
 
+    /**
+     * @brief Updates the robot state and sets the speeds.
+     *
+     * Updates the robot state and sets the speeds based on the current state.
+     * If the robot is in the IDLE state, it does nothing.
+     * If the robot is not in the IDLE state, it checks if the duration has elapsed.
+     * If the duration has elapsed, it sets the speeds to 0 and sets the state to IDLE.
+     * If the duration has not elapsed, it sets the speeds based on the current state.
+     * Call this every loop iteration for non-blocking movement.
+     */
     void update();
-    bool isBusy() const;
 
     /**
      * @brief Turns robot left in place.
@@ -39,7 +47,7 @@ public:
      * @param duration Float controlling duration in seconds
      * @param speed Float controlling speed in m/s
      */
-    void turnLeft(float duration, float speed);
+    void turnLeft(const float duration);
 
     /**
      * @brief Turns robot right in place.
@@ -50,7 +58,7 @@ public:
      * @param duration Float controlling duration in seconds
      * @param speed Float controlling speed in m/s
      */
-    void turnRight(float duration, float speed);
+    void turnRight(const float duration);
 
     /**
      * @brief Moves robot forward.
@@ -61,7 +69,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForward(float distance, float speed);
+    void moveForward(const float distance);
 
     /**
      * @brief Moves robot backward.
@@ -72,7 +80,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackward(float distance, float speed);
+    void moveBackward(const float distance);
 
     /**
      * @brief Moves robot forward and left.
@@ -83,7 +91,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningLeft(float distance, float speed);
+    void moveForwardTurningLeft(const float distance);
 
     /**
      * @brief Moves robot forward and right.
@@ -94,7 +102,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveForwardTurningRight(float distance, float speed);
+    void moveForwardTurningRight(const float distance);
 
     /**
      * @brief Moves robot backward and left.
@@ -105,7 +113,7 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningLeft(float distance, float speed);
+    void moveBackwardTurningLeft(const float distance);
 
     /**
      * @brief Moves robot backward and right.
@@ -116,14 +124,36 @@ public:
      * @param distance Float controlling distance in m
      * @param speed Float controlling speed in m/s
      */
-    void moveBackwardTurningRight(float distance, float speed);
+    void moveBackwardTurningRight(const float distance);
+
+    /**
+     * @brief Checks if robot is busy
+     *
+     * Checks if the robot is busy
+     *
+     * @return True if the robot is busy, false otherwise
+     */
+    bool isBusy() const;
+
+    /**
+     * @brief Gets state of the robot
+     *
+     * Gets the state of the robot
+     *
+     * @return The RobotState of the robot
+     */
+    RobotState getState() const;
 
 private:
-    RobotState state;
-    unsigned long start_time;
-    unsigned long duration_ms;
-    int left_mms;
-    int right_mms;
+    static constexpr float _TURN_SPEED_RATIO = 0.5f;
+    static constexpr float _BASE_SPEED = 0.1f; // Speed in meters
+
+    unsigned long _start_time = 0; // Time since new motion in milliseconds
+    unsigned long _duration_ms = 0; // Desired time of most recent motion in milliseconds
+    int16_t _left_mms = 0; // Desired speed of left motor in millimeters per second
+    int16_t _right_mms = 0; // Desired speed of left motor in millimeters per second
+
+    RobotState _state; // State of robot; IDLE when idle, corresponding motion when not
 };
 
 #endif
