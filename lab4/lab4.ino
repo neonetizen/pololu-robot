@@ -15,7 +15,7 @@ using namespace Pololu3piPlus32U4;
 //Update kp and kd based on your testing
 #define minOutput -100
 #define maxOutput 100
-#define kp ...
+#define kp 1
 #define base_speed 50
 
 Motors motors;
