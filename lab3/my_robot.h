@@ -27,6 +27,82 @@ public:
     void Halt();
 
     /**
+     * @brief Turns robot left in place.
+     *
+     * Makes the robot turn in place to the left for a specified duration.
+     *
+     * @param duration Float controlling duration in seconds
+     */
+    void turnLeft(const float duration);
+
+    /**
+     * @brief Turns robot right in place.
+     *
+     * Makes the robot turn in place to the right for a specified duration.
+     *
+     * @param duration Float controlling duration in seconds
+     */
+    void turnRight(const float duration);
+
+    /**
+     * @brief Moves robot forward.
+     *
+     * Makes the robot move straight forward for a specified distance.
+     *
+     * @param distance Float controlling distance in m
+     */
+    void moveForward(const float distance);
+
+    /**
+     * @brief Moves robot backward.
+     *
+     * Makes the robot move straight backward for a specified distance.
+     *
+     * @param distance Float controlling distance in m
+     */
+    void moveBackward(const float distance);
+
+    /**
+     * @brief Moves robot forward and left.
+     *
+     * Makes the robot move forward while turning left for a specified
+     * distance.
+     *
+     * @param distance Float controlling distance in m
+     */
+    void moveForwardTurningLeft(const float distance);
+
+    /**
+     * @brief Moves robot forward and right.
+     *
+     * Makes the robot move forward while turning right for a specified
+     * distance.
+     *
+     * @param distance Float controlling distance in m
+     */
+    void moveForwardTurningRight(const float distance);
+
+    /**
+     * @brief Moves robot backward and left.
+     *
+     * Makes the robot move backward while turning left for a specified
+     * distance.
+     *
+     * @param distance Float controlling distance in m
+     */
+    void moveBackwardTurningLeft(const float distance);
+
+    /**
+     * @brief Moves robot backward and right.
+     *
+     * Makes the robot move backward while turning right for a specified
+     * distance.
+     *
+     * @param distance Float controlling distance in m
+     */
+    void moveBackwardTurningRight(const float distance);
+
+    /**
      * @brief Updates the robot state and sets the speeds.
      *
      * Updates the robot state and sets the speeds based on the current state.
@@ -37,94 +113,6 @@ public:
      * Call this every loop iteration for non-blocking movement.
      */
     void update();
-
-    /**
-     * @brief Turns robot left in place.
-     *
-     * Makes the robot turn in place to the left for a specified duration
-     * at a specified speed.
-     *
-     * @param duration Float controlling duration in seconds
-     * @param speed Float controlling speed in m/s
-     */
-    void turnLeft(const float duration);
-
-    /**
-     * @brief Turns robot right in place.
-     *
-     * Makes the robot turn in place to the right for a specified duration
-     * at a specified speed.
-     *
-     * @param duration Float controlling duration in seconds
-     * @param speed Float controlling speed in m/s
-     */
-    void turnRight(const float duration);
-
-    /**
-     * @brief Moves robot forward.
-     *
-     * Makes the robot move straight forward for a specified distance at 
-     * a specified speed.
-     *
-     * @param distance Float controlling distance in m
-     * @param speed Float controlling speed in m/s
-     */
-    void moveForward(const float distance);
-
-    /**
-     * @brief Moves robot backward.
-     *
-     * Makes the robot move straight backward for a specified distance at 
-     * a specified speed.
-     *
-     * @param distance Float controlling distance in m
-     * @param speed Float controlling speed in m/s
-     */
-    void moveBackward(const float distance);
-
-    /**
-     * @brief Moves robot forward and left.
-     *
-     * Makes the robot move forward while turning left for a specified
-     * distance at a specified speed.
-     *
-     * @param distance Float controlling distance in m
-     * @param speed Float controlling speed in m/s
-     */
-    void moveForwardTurningLeft(const float distance);
-
-    /**
-     * @brief Moves robot forward and right.
-     *
-     * Makes the robot move forward while turning right for a specified
-     * distance at a specified speed.
-     *
-     * @param distance Float controlling distance in m
-     * @param speed Float controlling speed in m/s
-     */
-    void moveForwardTurningRight(const float distance);
-
-    /**
-     * @brief Moves robot backward and left.
-     *
-     * Makes the robot move backward while turning left for a specified
-     * distance at a specified speed.
-     *
-     * @param distance Float controlling distance in m
-     * @param speed Float controlling speed in m/s
-     */
-    void moveBackwardTurningLeft(const float distance);
-
-    /**
-     * @brief Moves robot backward and right.
-     *
-     * Makes the robot move backward while turning right for a specified
-     * distance at a specified speed.
-     *
-     * @param distance Float controlling distance in m
-     * @param speed Float controlling speed in m/s
-     */
-    void moveBackwardTurningRight(const float distance);
 
     /**
      * @brief Checks if robot is busy
