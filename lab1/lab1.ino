@@ -2,10 +2,8 @@
 #include "my_robot.h"
 using namespace Pololu3piPlus32U4;
 
-#define PI 3.14159
 Motors motors;
 MyRobot robot; 
-
 
 void setup() {
   Serial.begin(9600);
@@ -18,13 +16,21 @@ void loop(){
     //speeds input as m/s, distance input as m, duration input as seconds
     robot.Halt();
     //move forward
-    robot.moveForward(1, 0.1);
-    robot.turnRight(PI/2, 0.1);
-    robot.moveForward(1, 0.1);
-    robot.turnRight(PI/2, 0.1);
-    robot.moveForward(1, 0.1);
-    robot.turnRight(PI/2, 0.1);
-    robot.moveForward(1, 0.1);
+    robot.moveForward(0.1, 0.1);
+    //move backwards
+    robot.moveBackward(0.1, 0.1);
+    //turn right(in place)
+    robot.turnRight(0.1, 0.1);
+    //turn left (in place)
+    robot.turnLeft(0.1, 0.1);
+    //move forward while turning right
+    robot.moveForwardTurningRight(0.2, 0.1);
+    //move forward while turning left
+    robot.moveForwardTurningLeft(0.2, 0.1);
+    //move backward while turning right
+    robot.moveBackwardTurningRight(0.2, 0.1);
+    //move forward while turning left
+    robot.moveBackwardTurningLeft(0.2, 0.1);
     //halt
     robot.Halt();
     exit(1);
