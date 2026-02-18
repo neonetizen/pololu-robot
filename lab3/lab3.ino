@@ -58,7 +58,7 @@ void loop() {
       //DO NOT DELETE CODE AFTER EACH TASK, COMMENT OUT INSTEAD
       
       //(2.2a) MOVE FORWARD ON A STRAIGHT LINE FOR ONE METER 
-      /*
+/*
       if(!robot.isBusy() && !done) {
         robot.moveForward(0.80, 0.1);
         //delay(10000);
@@ -66,16 +66,18 @@ void loop() {
       }      
 */
       //(2.2b) MOVE BACKWARD ON A STRAIGHT LINE FOR ONE METER
-      /*
+/*
       if(!robot.isBusy()) {
         robot.moveBackward(1, 0.1);
       }
+*/
       //(2.2c) TURN LEFT FOR 90 DEGREES
+/*
       if(!robot.isBusy()) {
         robot.turnLeft(DURATION_NINETY_DEG_LEFT, 0.1);
         robot.update();
       }
-      */
+*/
       // PRINT THE LEFT AND RIGHT ODOMETRY VALUES ON OLED
       // PRINT THE LEFT AND RIGHT ODOMETRY VALUES ON SERIAL MONITOR
 
@@ -100,45 +102,45 @@ void loop() {
       //DO NOT DELETE CODE AFTER EACH TASK, COMMENT OUT INSTEAD
 
       //(3.2a)  15-meter straight line down the hallway
-      /*
+/*
       if(!robot.isBusy()) {
         robot.moveForward(15, 0.1);
       }
-      //(3.2c)  1-meter square clockwise
-      if(!robot.isBusy()) {
-        robot.moveForward(1, 0.1);
-        robot.update();
-        robot.turnRight(PI/2, 0.1);
-        robot.update();
-        robot.moveForward(1, 0.1);
-        robot.update();
-        robot.turnRight(PI/2, 0.1);
-        robot.update();
-        robot.moveForward(1, 0.1);
-        robot.update();
-        robot.turnRight(PI/2, 0.1);
-        robot.update();
-        robot.moveForward(1, 0.1);
-        robot.update();
-      }
+*/
 
-      //(3.3e)  1-meter square counterclockwise
-      if(!robot.isBusy()) {
-        robot.moveForward(1, 0.1);
-        robot.update();
-        robot.turnLeft(PI/2, 0.1);
-        robot.update();
-        robot.moveForward(1, 0.1);
-        robot.update();
-        robot.turnLeft(PI/2, 0.1);
-        robot.update();
-        robot.moveForward(1, 0.1);
-        robot.update();
-        robot.turnLeft(PI/2, 0.1);
-        robot.update();
-        robot.moveForward(1, 0.1);
-        robot.update();
+      //(3.2c)  1-meter square clockwise - step acts as queue index
+/*
+      if (!robot.isBusy()) {
+        switch (step) {
+          case 0: robot.moveForward(1, 0.1); break;
+          case 1: robot.turnRight(PI/2, 0.1); break;
+          case 2: robot.moveForward(1, 0.1); break;
+          case 3: robot.turnRight(PI/2, 0.1); break;
+          case 4: robot.moveForward(1, 0.1); break;
+          case 5: robot.turnRight(PI/2, 0.1); break;
+          case 6: robot.moveForward(1, 0.1); break;
+          case 7: robot.turnRight(PI/2, 0.1); break;
+          default: break;
+        }
+        if (step < 8) step++;
       }
-      */
+*/
+      //(3.3e)  1-meter square counterclockwise - same pattern with turnLeft
+/*
+      if (!robot.isBusy()) {
+        switch (step) {
+          case 0: robot.moveForward(1, 0.1); break;
+          case 1: robot.turnLeft(PI/2, 0.1); break;
+          case 2: robot.moveForward(1, 0.1); break;
+          case 3: robot.turnLeft(PI/2, 0.1); break;
+          case 4: robot.moveForward(1, 0.1); break;
+          case 5: robot.turnLeft(PI/2, 0.1); break;
+          case 6: robot.moveForward(1, 0.1); break;
+          case 7: robot.turnLeft(PI/2, 0.1); break;
+          default: break;
+        }
+        if (step < 8) step++;
+      }
+*/
       //while(true) {}
 }
