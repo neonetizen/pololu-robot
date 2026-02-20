@@ -13,10 +13,10 @@ using namespace Pololu3piPlus32U4;
 #define gearRatio 75
 
 //Update kp and kd based on your testing
-#define minOutput -100
-#define maxOutput 100
-#define kp 1
-#define base_speed 50
+#define minOutput -250
+#define maxOutput 250
+#define kp 1.2f
+#define base_speed 200
 
 Motors motors;
 Servo servo;
@@ -25,8 +25,10 @@ Sonar sonar(4);
 Pcontroller Pcontroller (kp, minOutput, maxOutput);
 
 const double distFromWall=10.0; // Goal distance from wall (cm)
+bool started = false;
 
 double wallDist;
+
 
 void setup() {
   Serial.begin(9600);
@@ -37,10 +39,11 @@ void setup() {
 
 void loop() {
   //DO NOTE DELETE CODE AFTER EACH TASK, COMMENT OUT INSTEAD
+  servo.write(170);
   wallDist = sonar.readDist();
 
   //UNCOMMENT AFTER IMPLEMENTING Pcontroller
-  //Pout = Pcontroller.update(wallDist, distFromWall); //uncomment if using Pcontroller 
+  double Pout = Pcontroller.update(wallDist, distFromWall); //uncomment if using Pcontroller 
 
   //(LAB 4 - TASK 3.1) IMPLEMENT PCONTROLLER 
   
@@ -54,8 +57,15 @@ void loop() {
   AND SET THE MOTOR SPEEDS. CHANGE THE KP AND CLAMPING VALUES AT THE TOP
   TO TEST (B-D).
   Hint: Also use baseSpeed when setting motor speeds*/
+  int16_t left = constrain(base_speed + Pout, -400, 400);
+  int16_t right = constrain(base_speed - Pout, -400, 400);
+
+  motors.setSpeeds(left, right);
+
 
   //Also print outputs to serial monitor for testing purposes
-
+  Serial.print("Wall distance: ");
+  Serial.print(wallDist);
+  Serial.println("");
 
 }
