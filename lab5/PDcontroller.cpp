@@ -24,17 +24,27 @@ double PDcontroller::update(double value, double target_value){
   */
   _curr_time = millis();
   double error = target_value - value;
+  double dTerm = 0;
+  double pTerm = 0;
 
   // TODO: finish PD calculation
-  if (_prev_time) {
+  if (_prev_time > 0) {
+    double delta_error = error - _prev_error;
+    unsigned long delta_time = _curr_time - _prev_time;
 
-  } else
-    _clampOut = constrain(_kp * error, _minOutput, _maxOutput);
+    if(delta_time > 0) {
+      double derivative = delta_error/delta_time;
+      dTerm = _kd * derivative;
+    }
+  } else {
+    pTerm = _kp * error;
+  }
+
+  double totalOutput = dTerm + pTerm;
+  _clampOut(totalOutput, _minOutput, _maxOutput);
 
   _prev_time = _curr_time;
   _prev_error = error;
 
-
   return _clampOut;
-
 }
