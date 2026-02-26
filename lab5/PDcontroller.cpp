@@ -28,10 +28,10 @@ double PDcontroller::update(double value, double target_value){
 
   _curr_time = millis();
   if (_prev_time) {
-    double delta_error = error - _prev_error;
     unsigned long delta_time = _curr_time - _prev_time;
-
+    double delta_error = error - _prev_error;
     double derivative = delta_error/delta_time;
+    
     dTerm = _kd * derivative;
   }
 
