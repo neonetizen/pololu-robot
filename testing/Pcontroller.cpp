@@ -1,8 +1,8 @@
 #include <Pololu3piPlus32U4.h>
-#include "PDcontroller.h"
+#include "Pcontroller.h"
 using namespace Pololu3piPlus32U4;
 
-PDcontroller::PDcontroller(float kp, float kd, double minOutput, double maxOutput) {
+Pcontroller::Pcontroller(float kp, float kd, double minOutput, double maxOutput) {
   // initialize the private varaibles from Pcontroller.h here
   _kp = kp;
   _kd = kd;
@@ -12,7 +12,7 @@ PDcontroller::PDcontroller(float kp, float kd, double minOutput, double maxOutpu
   _prev_time = 0;
 }
 
-double PDcontroller::update(double value, double target_value){
+double Pcontroller::update(double value, double target_value){
   //Controller math here
   /*Hints: To add damping (derivative), you must have something to
            keep track of time for the rate of change.
