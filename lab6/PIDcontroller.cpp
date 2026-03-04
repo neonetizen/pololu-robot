@@ -27,6 +27,7 @@ double PIDcontroller::update(double value, double target_value){
   double error = target_value - value;
   double dTerm = 0;
   double pTerm = 0;
+  double iTerm = 0;
 
   _curr_time = millis();
   if (_prev_time) {
@@ -35,11 +36,15 @@ double PIDcontroller::update(double value, double target_value){
     double derivative = delta_error/delta_time;
     
     dTerm = _kd * derivative;
-  }
+
+    _error_accum += error * delta_time;
+    _error_accum = constrain(_error_accum, -_clamp_i, _clamp_i);
+    iTerm = _ki * _error_accum;
+  } 
 
   pTerm = _kp * error;
 
-  double totalOutput = dTerm + pTerm;
+  double totalOutput = dTerm + iTerm + pTerm;
 
   _clampOut = constrain(totalOutput, _minOutput, _maxOutput);
   _prev_time = _curr_time;
