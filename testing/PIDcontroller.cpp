@@ -3,8 +3,6 @@
 using namespace Pololu3piPlus32U4;
 
 PIDcontroller::PIDcontroller(float kp, float ki, float kd, double minOutput, double maxOutput, double clamp_i) {
-  /*Initialize values by copying and pasting from PD controller, then declaring for
-  the three new variables.*/
   _kp = kp;
   _kd = kd;
   _ki = ki;
@@ -16,14 +14,6 @@ PIDcontroller::PIDcontroller(float kp, float ki, float kd, double minOutput, dou
 }
 
 double PIDcontroller::update(double value, double target_value){
-  /*Now copy and paste your PD controller. To implement I component,
-  keep track of accumulated error, use your accumulated error in the constrain
-  function for the integral, multiply ki by your integral, then add your p, d,
-  and i components.
-  
-  Note: Do not just put all of the integral code at the end of PD component. Think
-  about step by step how you can integrate these parts into your PDController
-  code.*/
   double error = target_value - value;
   double pTerm = _kp * error;
   double dTerm = 0;
@@ -35,7 +25,7 @@ double PIDcontroller::update(double value, double target_value){
     // calculating delta time
     unsigned long dt = _curr_time - _prev_time;
 
-    if (delta_time > 0) {
+    if (dt > 0) {
       // calculating delta error
       double de = error - _prev_error;
 

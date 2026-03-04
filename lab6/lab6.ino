@@ -1,8 +1,7 @@
 #include <Pololu3piPlus32U4.h>
 #include "printOLED.h"
 #include "PIDcontroller.h"
-//#include "odometry.h" //If using odometry, import odometry.h and odometry.cpp
-#include "odometry.h"
+#include "odometry.h" //If using odometry, import odometry.h and odometry.cpp
 #include "PDcontroller.h" //Import your PDcontroller.h and PDcontroller.cpp then uncomment
 using namespace Pololu3piPlus32U4;
 
@@ -20,16 +19,13 @@ PrintOLED oledPrinter;
 #define DEAD_RECKONING false
 
 //Update kp, kd, and ki based on your testing
-#define minOutput -100
-#define maxOutput 100
-#define kp 0 //Tune Kp here
-#define kd 0 //Tune Kd here
-#define ki 0 //Tune Ki here
-#define clamp_i 0 //Tune ki integral clamp here
-#define base_speed 50
-
-//Unit conversion
-#define MM_TO_CM 10
+#define minOutput -20.0f
+#define maxOutput 20.0f
+#define kp 6.0f //Tune Kp here
+#define kd 2.0f //Tune Kd here
+#define ki 0.05f //Tune Ki here
+#define clamp_i 50.0 //Tune ki integral clamp here
+#define base_speed 200
 
 Odometry odometry(diaL, diaR, w, nL, nR, gearRatio, DEAD_RECKONING); //Uncomment if using odometry class
 PDcontroller pdcontroller(kp, kd, minOutput, maxOutput); //Uncomment when using PDController
@@ -67,9 +63,6 @@ void loop() {
 
   odometry.update_odom(encCountsLeft,encCountsRight, x, y, theta); //calculate robot's position
 
-
-
-
   //Lab 6
   //Note: To help with testing, print the theta and PD/PID outputs to serial monitor.
 
@@ -77,16 +70,18 @@ void loop() {
   Move your PDController.h and PDController.cpp files here to use for task 2.2.
   Also move your odometry.h and odometry.cpp if you decide to use it for 
   measuring the angle of your robot.*/
-/*  
-  int16_t left = constrain(calculateLeft(PDout / MM_TO_CM) - right_overflow, -400, 400);
-  int16_t right = constrain(calculateRight(PDout / MM_TO_CM) - left_overflow, -400, 400);
+/*
+  int16_t left = constrain(calculateLeft(PDout), -400, 400);
+  int16_t right = constrain(calculateRight(PDout), -400, 400);
 
+  motors.setSpeeds(left, right);
+
+  Serial.println("dist: ");
+  //Serial.print(wallDist);
   Serial.println("Left: ");
   Serial.print(left);
   Serial.println("Right: ");
-  Serial.print(right);
-
-  motors.setSpeeds(left, right);
+  Serial.print(right);  
 */
   /*TASK 2.2
   Utilize your PDController to go to angles PI, PI/2, and PI/2.
@@ -99,16 +94,11 @@ void loop() {
   Utilize your PIDController to go to angles PI, PI/2, and PI/2.
   Write your code below.*/
 }
-/*
-int16_t calculateRight(double angV) {
-  double v = base_speed + (w * angV / 2);
-  right_overflow = v - constrain(v, -400, 400);
-  return (int16_t)v;
+
+static inline double calculateRight(double angV) {
+  return base_speed + (w * angV / 2);
 }
 
-int16_t calculateLeft(double angV) {
-  double v = base_speed - (w * angV / 2);
-  left_overflow = v - constrain(v, -400, 400);
-  return (int16_t)v;
+static inline double calculateLeft(double angV) {
+  return base_speed - (w * angV / 2);
 }
-*/
