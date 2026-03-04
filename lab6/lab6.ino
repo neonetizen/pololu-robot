@@ -25,7 +25,7 @@ PrintOLED oledPrinter;
 #define kd 2.0f //Tune Kd here
 #define ki 0.05f //Tune Ki here
 #define clamp_i 50.0 //Tune ki integral clamp here
-#define base_speed 200
+#define base_speed 0
 
 Odometry odometry(diaL, diaR, w, nL, nR, gearRatio, DEAD_RECKONING); //Uncomment if using odometry class
 PDcontroller pdcontroller(kp, kd, minOutput, maxOutput); //Uncomment when using PDController
@@ -62,7 +62,7 @@ void loop() {
   encCountsRight += deltaR;  
 
   odometry.update_odom(encCountsLeft,encCountsRight, x, y, theta); //calculate robot's position
-
+  
   //Lab 6
   //Note: To help with testing, print the theta and PD/PID outputs to serial monitor.
 
@@ -70,29 +70,30 @@ void loop() {
   Move your PDController.h and PDController.cpp files here to use for task 2.2.
   Also move your odometry.h and odometry.cpp if you decide to use it for 
   measuring the angle of your robot.*/
-/*
-  int16_t left = constrain(calculateLeft(PDout), -400, 400);
-  int16_t right = constrain(calculateRight(PDout), -400, 400);
 
-  motors.setSpeeds(left, right);
-
-  Serial.println("dist: ");
-  //Serial.print(wallDist);
-  Serial.println("Left: ");
-  Serial.print(left);
-  Serial.println("Right: ");
-  Serial.print(right);  
-*/
   /*TASK 2.2
   Utilize your PDController to go to angles PI, PI/2, and PI/2.
   Write your code below and comment out when moving to next task.*/
+/*
+  PDout = pdcontroller.update(theta, goal_theta);
 
+  int16_t left  = constrain((int)calculateLeft(PIDout), -400, 400);
+  int16_t right = constrain((int)calculateRight(PIDout), -400, 400);
+  motors.setSpeeds(left, right);
+*/
   /*TASK 3.1
   Implement PID controller to use for task 3.2.*/
 
   /*TASK 3.2
   Utilize your PIDController to go to angles PI, PI/2, and PI/2.
   Write your code below.*/
+/* 
+  PIDout = pidcontroller.update(theta, goal_theta)
+
+  int16_t left  = constrain((int)calculateLeft(PIDout), -400, 400);
+  int16_t right = constrain((int)calculateRight(PIDout), -400, 400);
+  motors.setSpeeds(left, right);
+*/
 }
 
 static inline double calculateRight(double angV) {
