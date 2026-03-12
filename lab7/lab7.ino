@@ -105,6 +105,9 @@ void loop() {
   Improve the baseline solution by telling the robot to stop when it gets close 
   enough to the goal.
   Write your code below and comment out when moving to the next task.*/
+  float dist_from_goal = sqrt(pow(goal_x - x, 2) + pow(goal_y - y, 2));
+  if (dist_from_goal < 10)
+    break;
 
   /*TASK 2.3
   Improve the solution further by using a second PID controller to control the velocity
