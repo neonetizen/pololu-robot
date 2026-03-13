@@ -37,7 +37,7 @@ PrintOLED oledPrinter;
 
 Odometry odometry(diaL, diaR, w, nL, nR, gearRatio, DEAD_RECKONING); //Uncomment if using odometry class
 PIDcontroller pidcontroller(kpAng, kiAng, kdAng, minOutputAng, maxOutputAng, clamp_iAng); //Uncomment after you import PIDController
-//Write your second PIDcontroller object here (Task 2.3)
+PIDcontroller velController(kpVel, kiVel, kdVel, minOutputVel, maxOutputVel, clamp_iVel); //Second PIDcontroller for velocity
 
 //Feel free to use this in your PD/PID controller for target values
 // Given goals in cm and radians
@@ -93,29 +93,49 @@ void loop() {
 
   angle_to_goal = atan2(goal_y - y, goal_x - x);
   actual_angle = atan2(sin(theta), cos(theta));
-  
-  PIDout = pidcontroller.update(actual_angle, angle_to_goal);
 
-  int16_t left  = constrain((int16_t)calculateLeft(PIDout), -400, 400);
-  int16_t right = constrain((int16_t)calculateRight(PIDout), -400, 400);
-  motors.setSpeeds(left, right);  
-  
+  float dist_from_goal = sqrt(pow(goal_x - x, 2) + pow(goal_y - y, 2));
 
   /*TASK 2.2
   Improve the baseline solution by telling the robot to stop when it gets close 
   enough to the goal.
   Write your code below and comment out when moving to the next task.*/
 /*
-  float dist_from_goal = sqrt(pow(goal_x - x, 2) + pow(goal_y - y, 2));
   if (dist_from_goal < 1){
-    motors.setSpeeds(0.0, 0.0);
+    motors.setSpeeds(0, 0);
     exit(0);
   }
+  PIDout = pidcontroller.update(actual_angle, angle_to_goal);
+  int16_t left  = constrain((int16_t)calculateLeft(PIDout), -400, 400);
+  int16_t right = constrain((int16_t)calculateRight(PIDout), -400, 400);
+  motors.setSpeeds(left, right);
 */
+
   /*TASK 2.3
   Improve the solution further by using a second PID controller to control the velocity
   as it goes towards the goal.
   Write your code below.*/
+/*
+  if (dist_to_goal < 1.0) {
+    motors.setSpeeds(0, 0);
+    return;
+  }
+*/
+  PIDout_theta = pidcontroller.update(actual_angle, angle_to_goal);
+
+  // error = target - value = 0 - dist_from_goal
+  PIDout_distance = -velController.update(dist_from_goal, 0.);
+
+  int16_t left  = constrain((int16_t)(PIDout_distance - ( w * PIDout_theta / 2)), -400, 400);
+  int16_t right = constrain((int16_t)(PIDout_distance + ( w * PIDout_theta / 2)), -400, 400);
+  motors.setSpeeds(left, right);
+
+  // Debug output to Serial monitor
+  Serial.print("dist:"); Serial.print(dist_from_goal);
+  Serial.print(" vel:"); Serial.print(PIDout_distance);
+  Serial.print(" ang:"); Serial.print(PIDout_theta);
+  Serial.print(" x:"); Serial.print(x);
+  Serial.print(" y:"); Serial.println(y);
 
 }
 
