@@ -20,10 +20,10 @@ PrintOLED oledPrinter;
 //Update kp, kd, and ki based on your testing (First PIDcontroller for angle)
 #define minOutputAng -50.0
 #define maxOutputAng 50.0
-#define kpAng 10.0f //Tune Kp here
-#define kdAng 5.0f //Tune Kd here
-#define kiAng 0.75f //Tune Ki here
-#define clamp_iAng 10.0f //Tune ki integral clamp here
+#define kpAng 5.0f //Tune Kp here
+#define kdAng 10.0f //Tune Kd here
+#define kiAng 2 //Tune Ki here
+#define clamp_iAng 5.0f //Tune ki integral clamp here
 #define base_speedAng 150
 
 //Update kp, kd, and ki based on your testing (Second PIDcontroller for velocity) (Task 2.3)
@@ -33,7 +33,7 @@ PrintOLED oledPrinter;
 #define kdVel 5 //Tune Kd here
 #define kiVel 0.75 //Tune Ki here
 #define clamp_iVel 10.0f //Tune ki integral clamp here
-#define base_speedVel 50
+#define base_speedVel 150
 
 Odometry odometry(diaL, diaR, w, nL, nR, gearRatio, DEAD_RECKONING); //Uncomment if using odometry class
 PIDcontroller pidcontroller(kpAng, kiAng, kdAng, minOutputAng, maxOutputAng, clamp_iAng); //Uncomment after you import PIDController
@@ -92,9 +92,9 @@ void loop() {
   //actual_angle = atan2(?, ?);
 
   angle_to_goal = atan2(goal_y - y, goal_x - x);
-  actual_angle = atan2(cos(theta), sin(theta));
+  actual_angle = atan2(sin(theta), cos(theta));
   
-  PIDout = pidcontroller.update(angle_to_goal, actual_angle);
+  PIDout = pidcontroller.update(actual_angle, angle_to_goal);
 
   int16_t left  = constrain((int16_t)calculateLeft(PIDout), -400, 400);
   int16_t right = constrain((int16_t)calculateRight(PIDout), -400, 400);
@@ -105,10 +105,13 @@ void loop() {
   Improve the baseline solution by telling the robot to stop when it gets close 
   enough to the goal.
   Write your code below and comment out when moving to the next task.*/
+/*
   float dist_from_goal = sqrt(pow(goal_x - x, 2) + pow(goal_y - y, 2));
-  if (dist_from_goal < 10)
-    break;
-
+  if (dist_from_goal < 1){
+    motors.setSpeeds(0.0, 0.0);
+    exit(0);
+  }
+*/
   /*TASK 2.3
   Improve the solution further by using a second PID controller to control the velocity
   as it goes towards the goal.
