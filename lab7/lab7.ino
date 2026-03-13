@@ -136,7 +136,6 @@ void loop() {
   Serial.print(" ang:"); Serial.print(PIDout_theta);
   Serial.print(" x:"); Serial.print(x);
   Serial.print(" y:"); Serial.println(y);
-
 }
 
 static inline double calculateRight(double angV) {
